@@ -19,30 +19,38 @@ define_name = []
 with open(openFile, 'r') as file:
     # 파일을 한 줄씩 읽어옵니다.
     lines = file.readlines()
+
+    # 좌우 공백을 제거합니다.
+    lines = [l.strip() for l in lines]
+
     # 읽어온 파일을 iterator 객체로 변환합니다.
+
     lines_iter = iter(lines)
 
     # 라인을 하나씩 조사합니다.
     for line in lines_iter:
         # 만약 라인이 '#define'으로 시작하면 이 라인을 저장합니다.
-        if line.lstrip().startswith('#define'):
+        if line.startswith('#define'):
+        # if line.lstrip().startswith('#define'):
             statement = line
 
             # 매크로명 저장 과정
             s = line.split()[1]
 
             # 한 줄에 입력된 매크로라면
-            if s.endswith(")") : 
-                p = re.compile(r"(.*?)\(.*?\)")
+            p = re.compile(r"(.*?)\(")
+
+            if p.findall(s) : 
                 s = p.findall(s)[0]
 
             define_name.append(s)
-            # '\n'로 끝나는 문장이면 다음 라인도 추가합니다.
-            if line.endswith('\\\n'):
+            # '\\'로 끝나는 문장이면 다음 라인도 추가합니다.
+            while line.endswith('\\'):
                 try : 
                     # next로 iterator의 다음 요소를 불러옵니다.
-                    next_line = next(lines_iter)
-                    statement += next_line
+                    line = next(lines_iter)
+                    # next_line = next(lines_iter)
+                    statement += line
                 except StopIteration: 
                     break
 
