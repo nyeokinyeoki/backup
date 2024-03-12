@@ -5,10 +5,13 @@ file_path = str(input("파일명(혹은 파일 경로)를 입력하세요 : "))
 extension = str(input("확장자를 입력하세요(예시 : .png) : "))
 
 # sample_rate 리스트
-sample_rate = ["임의의 sample"]
+# sample_rate = ["임의의 sample"]
+sample_rate = [8000, 11025, 16000, 22050, 24000, 32000, 44100, 48000]
 
 # bit_width 리스트
-bit_width = ["임의의 sample"]
+# bit_width = ["임의의 sample"]
+bit_width = [16, 24, 32]
+length_bit = len(bit_width)
 
 regexp = re.compile(r"(?<=:\\).+")  # :\ 뒤로 후방탐색
 
@@ -37,20 +40,18 @@ for path_ in list_file_path :
 
     filelist = [s for s in lists_path_ if os.path.isfile(os.path.join(path_, s))]
 
-    filelist.sort(key=lambda s: os.path.getmtime(os.path.join(path_, s)))  # 생성한 날짜 순으로 정렬
+    filelist.sort(key=lambda s: os.path.getctime(os.path.join(path_, s)))  # 생성한 날짜 순으로 정렬
 
-    # print(lists_path_)
-    # print(filelist)
 
     r_cnt = 1
 
     for rate in sample_rate : 
         
-        b_cnt = 3
+        b_cnt = len(bit_width)
 
         for bit in bit_width :
                  
-            multi_len = 3 * r_cnt - b_cnt
+            multi_len = length_bit * r_cnt - b_cnt
             src = os.path.join(path_, filelist[multi_len])
             print(src)
             dst = change_path+"_"+str(rate)+"_"+str(bit)+extension
