@@ -5,13 +5,7 @@ file_path = str(input("파일명(혹은 파일 경로)를 입력하세요 : "))
 extension = str(input("확장자를 입력하세요(예시 : .png) : "))
 
 # sample_rate 리스트
-# sample_rate = ["임의의 sample"]
-sample_rate = [8000, 11025, 16000, 22050, 24000, 32000, 44100, 48000]
-
-# bit_width 리스트
-# bit_width = ["임의의 sample"]
-# bit_width = [16, 24, 32]
-# length_bit = len(bit_width)
+sample_rate = ["임의의 sample"]
 
 regexp = re.compile(r"(?<=:\\).+")  # :\ 뒤로 후방탐색
 
@@ -54,9 +48,9 @@ for path_ in list_file_path :
 
     for rate in sample_rate : 
 
-        bit_width0 = [16,24,32]
-        bit_width1 = [24,32]
-        bit_width2 = [32]
+        bit_width0 = ["임의의 bit"]
+        bit_width1 = ["임의의 bit"]
+        bit_width2 = ["임의의 bit"]
 
         bit_width = globals()["bit_width"+str(std_bit % 3)]
 
