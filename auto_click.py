@@ -65,7 +65,7 @@ while cnt < criteria_cnt :
     pyautogui.click()
     time.sleep(f_time_short)
 
-    # 최소 RMS 클릭 or 최대 RMS 클릭
+    # 최소 클릭 or 최대 클릭
     # pyautogui.moveTo(1466,463)  # 최소
     pyautogui.moveTo(1466,440)  # 최대
     time.sleep(f_time_short)
